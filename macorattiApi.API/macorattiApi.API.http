@@ -1,0 +1,6 @@
+@macorattiApi.API_HostAddress = http://localhost:5204
+
+GET {{macorattiApi.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
