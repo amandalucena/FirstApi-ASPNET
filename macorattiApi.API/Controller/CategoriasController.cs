@@ -1,6 +1,7 @@
 using macorattiApi.API.Context;
 using macorattiApi.API.Domain;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace macorattiApi.API.Controller;
 
@@ -19,6 +20,17 @@ public class CategoriasController : ControllerBase
     public ActionResult<IEnumerable<Categoria>> Get()
     {
         var categorias = _context.Categorias.ToList();
+
+        if (categorias is null)
+            return NotFound("Categorias não encontradas");
+
+        return categorias;
+    }
+
+    [HttpGet("produtos")]
+    public ActionResult<IEnumerable<Categoria>> GetCategoriasProdutos()
+    {
+        var categorias = _context.Categorias.Include(p => p.Produtos).ToList();
 
         if (categorias is null)
             return NotFound("Categorias não encontradas");
